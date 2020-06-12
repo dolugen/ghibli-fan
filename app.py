@@ -1,4 +1,5 @@
 import requests
+from requests.exceptions import ConnectionError
 from flask import Flask, redirect, render_template
 from flask_caching import Cache
 
@@ -6,6 +7,7 @@ API_URL = "https://ghibliapi.herokuapp.com"
 
 app = Flask(__name__)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+
 
 class GhibliException(Exception):
     '''generic exception for app error handling'''
@@ -20,12 +22,13 @@ def get_url(url, cache_time=60):
 
     return get_url_cached(url)
 
+
 def get_ghibli_api_resource(name, limit=250):
     '''load a resource from the ghibli api'''
     response = get_url(f"{API_URL}/{name}?limit={limit}")
     if response.status_code != 200:
-        raise Exception(f'Resource unavailable! Response code: {response.status_code}')
-
+        err_msg = f'Resource unavailable! Status code: {response.status_code}'
+        raise Exception(err_msg)
     return response.json()
 
 
@@ -45,7 +48,7 @@ def get_movies_and_people():
         # for this movie, find its people and assign to it
         movie_people = filter(lambda p: movie["url"] in p["films"], people)
         movie['people'] = list(movie_people)
-    
+
     return movies
 
 
@@ -59,7 +62,7 @@ def movies_list():
     api_error = False
     try:
         movies = get_movies_and_people()
-    except:
+    except (GhibliException, ConnectionError):
         movies = []
         api_error = True
     return render_template('movies.html', entries=movies, api_error=api_error)
