@@ -17,13 +17,13 @@ def client():
 
 @pytest.fixture
 def movies_json():
-    with open('movies.json') as f:
+    with open('test_data/movies.json') as f:
         yield json.loads(f.read())
 
 
 @pytest.fixture
 def people_json():
-    with open('people.json') as f:
+    with open('test_data/people.json') as f:
         yield json.loads(f.read())
 
 
