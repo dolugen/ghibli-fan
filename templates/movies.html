@@ -1,0 +1,32 @@
+<!doctype html>
+<title>Ghibli Movies</title>
+<body>
+    <h1>Ghibli Movies</h1>
+    {% for movie in entries %}
+    <div>
+    <h2>{{ movie.title }}</h2>
+    <p>{{ movie.description }}</p>
+    <div>
+        <h3>People</h3>
+        {% if movie.people %}
+        <ul>
+            {% for person in movie.people %}
+            <li>{{ person.name }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Data unavailable.</p>
+        {% endif %}
+    </div>
+    <div>
+        <h3>Production</h3>
+        <ul>
+            <li>Release Date: {{ movie.release_date }}</li>
+            <li>Director: {{ movie.director }}</li>
+            <li>Producer: {{ movie.producer }}</li>
+        </ul>
+    </div>
+    <hr>
+    </div>
+    {% endfor %}
+</body>
