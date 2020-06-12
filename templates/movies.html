@@ -2,6 +2,10 @@
 <title>Ghibli Movies</title>
 <body>
     <h1>Ghibli Movies</h1>
+    {% if api_error %}
+    <p>There was a problem loading the movies, please try again later.</p>
+    {% endif %}
+
     {% for movie in entries %}
     <div>
     <h2>{{ movie.title }}</h2>
