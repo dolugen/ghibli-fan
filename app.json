@@ -1,7 +1,7 @@
 {
-  "name": "Start on Heroku: Flask",
-  "description": "A barebones Flask app, which can easily be deployed to Heroku.",
-  "repository": "https://github.com/dolugen/heroku-flask-starter",
+  "name": "Ghibli Movies",
+  "description": "A single page website that lists all of Ghibli movies",
+  "repository": "https://github.com/dolugen/ghibli-fan",
   "keywords": ["python", "flask" ],
   "env": {
     "SECRET_KEY": {

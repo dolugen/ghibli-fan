@@ -1,21 +1,14 @@
-# Heroku Flask Starter App
+# Ghibli Movies
 
-A barebones Flask app, which can easily be deployed to Heroku.
-
-This is a template repository, you can [generate your own](https://github.com/dolugen/heroku-flask-starter/generate) from this.
-
-Adapted from [heroku/python-getting-started](https://github.com/heroku/python-getting-started).
-
-
-![Heroku and Flask](header.png)
+A single page website that lists all of Ghibli movies.
 
 ## Running Locally
 
 Make sure you have Python 3.7 [installed locally](http://install.python-guide.org). To push to Heroku, you'll need to install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
 
 ```sh
-$ git clone https://github.com/dolugen/heroku-flask-starter.git
-$ cd heroku-flask-starter
+$ git clone https://github.com/dolugen/ghibli-fan.git
+$ cd ghibli-fan
 
 $ python3 -m venv env
 $ source ./env/bin/activate
