@@ -19,6 +19,12 @@ $ heroku local
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
+## Testing
+
+```
+$ pytest tests.py
+```
+
 ## Deploying to Heroku
 
 ```sh

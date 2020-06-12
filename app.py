@@ -30,7 +30,7 @@ def movies_list():
     all_people = people_response.json()
 
     for movie in all_movies:
-        # filter people for this movie
+        # for this movie, find its people and assign to it
         movie_people = filter(lambda p: movie["url"] in p["films"], all_people)
         movie['people'] = list(movie_people)
 
