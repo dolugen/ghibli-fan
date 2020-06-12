@@ -7,7 +7,9 @@ from pytest_mock import mocker
 from requests import Response
 
 
-from app import app,  get_movies_and_people, get_movies_list, get_people_list, get_ghibli_api_resource
+from app import app, get_movies_and_people, \
+    get_movies_list, get_people_list, get_ghibli_api_resource
+
 
 @pytest.fixture
 def client():
@@ -35,7 +37,7 @@ def test_movies_page(client, mocker):
     get_movies_and_people = mocker.patch('app.get_movies_and_people')
     r = client.get('/movies')
     assert r.status_code == 200
-    get_movies_and_people.assert_called()
+    get_movies_and_people.assert_called_once()
 
 
 def test_get_movies_list(mocker):
@@ -43,14 +45,16 @@ def test_get_movies_list(mocker):
     get_ghibli_api_resource = mocker.patch('app.get_ghibli_api_resource')
     get_ghibli_api_resource.status_code.return_value = 200
     get_movies_list()
-    get_ghibli_api_resource.assert_called_with('films')
+    get_ghibli_api_resource.assert_called_once_with('films')
+
 
 def test_get_people_list(mocker):
     '''test that a correct request is sent for people'''
     get_ghibli_api_resource = mocker.patch('app.get_ghibli_api_resource')
     get_ghibli_api_resource.status_code = 200
     get_people_list()
-    get_ghibli_api_resource.assert_called_with('people')
+    get_ghibli_api_resource.assert_called_once_with('people')
+
 
 def test_api_call_for_films(mocker):
     '''test that api calls are correct'''
@@ -60,10 +64,12 @@ def test_api_call_for_films(mocker):
     res.json.return_value = []
     get_url.return_value = res
     get_ghibli_api_resource('films')
-    get_url.assert_called_with("https://ghibliapi.herokuapp.com/films?limit=250")
+    expected_films_url = "https://ghibliapi.herokuapp.com/films?limit=250"
+    get_url.assert_called_with(expected_films_url)
 
     get_ghibli_api_resource('people')
-    get_url.assert_called_with("https://ghibliapi.herokuapp.com/people?limit=250")
+    expected_people_url = "https://ghibliapi.herokuapp.com/people?limit=250"
+    get_url.assert_called_with(expected_people_url)
 
 
 def test_get_movies_and_people(mocker, movies_json, people_json):
@@ -76,7 +82,7 @@ def test_get_movies_and_people(mocker, movies_json, people_json):
     movies_with_people = get_movies_and_people()
     get_movies_list.assert_called_once()
     get_people_list.assert_called_once()
-    
+
     # the first movie in the dataset
     movie = movies_with_people[0]
     assert movie['title'] == 'Castle in the Sky'
